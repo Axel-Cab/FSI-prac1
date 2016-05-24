@@ -13,7 +13,7 @@ def memoize(f):
     return helper
 
 
-def h0(state, player):
+def h0():
     return random.randint(-100, 100)
 
 
@@ -36,6 +36,7 @@ def h1(state, player, h=7, v=6, k=4):
         computed += compute_utility(move, player, board, (h, v, k))
         computed -= compute_utility(move, enemy, board, (h, v, k))
     return computed
+h1 = memoize(h1)
 
 
 def compute_utility(move, player, board, (h, v, k)):
