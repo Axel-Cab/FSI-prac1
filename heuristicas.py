@@ -13,7 +13,7 @@ def memoize(f):
     return helper
 
 
-def h0():
+def h0(state, player):
     return random.randint(-100, 100)
 
 
