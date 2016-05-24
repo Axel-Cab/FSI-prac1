@@ -1,5 +1,5 @@
 import games
-import heuristica
+import heuristicas
 #game = games.TicTacToe(h=3,v=3,k=3)
 game = games.ConnectFour()
 
@@ -19,13 +19,13 @@ def maquina(state):
 
     if mod_game == '1':
         if mod_dif == '3':
-            move = games.alphabeta_search(state, game, eval_fn=heuristica.final)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
             state = game.make_move(move, state)
         if mod_dif == '2':
-            move = games.alphabeta_search(state, game, eval_fn=heuristica.final)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
             state = game.make_move(move, state)
         else:
-            move = games.alphabeta_search(state, game, eval_fn=heuristica.final)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
             state = game.make_move(move, state)
     return state
 def humano(state):
