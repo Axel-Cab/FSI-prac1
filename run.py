@@ -8,10 +8,11 @@ mod_game = raw_input("Pulsa 1 para jugar contra la maquina ,2 para jugar humano 
 
 if mod_game == '1':
     mod_dif= raw_input("Pulsa 1 para jugar dificultad dificil  ,2 para jugar dificultad media y 3 para jugar facil : ")
-
-
-player = 'X'
-
+    select_player = raw_input("Pulse 1 para que empieze la maquina, pulse otro numero para que juege usted primero :")
+    if select_player == '1':
+        player = 'X'
+    else:
+        player = 'O'
 def maquina(state):
     print "Thinking..."
     # move = games.minimax_decision(state, game)
@@ -19,14 +20,17 @@ def maquina(state):
 
     if mod_game == '1':
         if mod_dif == '3':
-            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.final)
             state = game.make_move(move, state)
         if mod_dif == '2':
-            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.final)
             state = game.make_move(move, state)
         else:
-            move = games.alphabeta_search(state, game, eval_fn=heuristicas.h1)
+            move = games.alphabeta_search(state, game, eval_fn=heuristicas.final)
             state = game.make_move(move, state)
+    else:
+        move = games.alphabeta_search(state, game, eval_fn=heuristicas.final)
+        state = game.make_move(move, state)
     return state
 def humano(state):
     col_str = raw_input("Movimiento: ")
