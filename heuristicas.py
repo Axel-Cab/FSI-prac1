@@ -66,7 +66,7 @@ def k_in_row(board, move, player, (delta_x, delta_y), (h, v, k)):
     if pos-1 < k:
         return 0
 
-    return computed-1
+    return computed-0.5
 
 
 def count(board, (delta_x, delta_y), player, enemy, move, (h, v)):
