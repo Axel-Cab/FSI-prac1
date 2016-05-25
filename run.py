@@ -70,7 +70,7 @@ if mod_game == '1':
             print "Final de la partida"
             break
 if mod_game == '2':
-    game = games.ConnectFour(jugador='X')
+    game = games.ConnectFour(player1='X')
     state = game.initial
     player = 'X'
     while True:
@@ -90,7 +90,7 @@ if mod_game == '2':
             break
 
 if mod_game == '3':
-    game = games.ConnectFour(jugador='X')
+    game = games.ConnectFour(player1='X')
     state = game.initial
     player = 'X'
     while True:
