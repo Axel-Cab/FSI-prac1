@@ -1,9 +1,8 @@
 """Games, or Adversarial Search. (Chapters 6)
-
 """
 
 from utils import *
-import random 
+import random
 
 #______________________________________________________________________________
 # Minimax Search
@@ -37,7 +36,7 @@ def minimax_decision(state, game):
 
 
 #______________________________________________________________________________
-    
+
 def alphabeta_full_search(state, game):
     """Search game to determine best action; use alpha-beta pruning.
     As in [Fig. 6.7], this version searches all the way to the leaves."""
@@ -71,15 +70,14 @@ def alphabeta_full_search(state, game):
                            lambda ((a, s)): min_value(s, -infinity, infinity))
     return action
 
-def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None):
+def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None,player='X'):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
-
-    player = game.to_move(state)
+    #player = game.to_move(state)
 
     def max_value(state, alpha, beta, depth):
         if cutoff_test(state, depth):
-            return eval_fn(state)
+            return eval_fn(state,player)
         v = -infinity
         for (a, s) in game.successors(state):
             v = max(v, min_value(s, alpha, beta, depth+1))
@@ -90,7 +88,7 @@ def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None):
 
     def min_value(state, alpha, beta, depth):
         if cutoff_test(state, depth):
-            return eval_fn(state)
+            return eval_fn(state,player)
         v = infinity
         for (a, s) in game.successors(state):
             v = min(v, max_value(s, alpha, beta, depth+1))
@@ -162,7 +160,7 @@ class Game:
     def make_move(self, move, state):
         "Return the state that results from making a move from a state."
         abstract
-            
+
     def utility(self, state, player):
         "Return the value of this final state to player."
         abstract
@@ -193,11 +191,11 @@ class TicTacToe(Game):
     A state has the player to move, a cached utility, a list of moves in
     the form of a list of (x, y) positions, and a board, in the form of
     a dict of {(x, y): Player} entries, where Player is 'X' or 'O'."""
-    def __init__(self, h=3, v=3, k=3):
+    def __init__(self, h=3, v=3, k=3, player='X'):
         update(self, h=h, v=v, k=k)
         moves = [(x, y) for x in range(1, h+1)
                  for y in range(1, v+1)]
-        self.initial = Struct(to_move='X', utility=0, board={}, moves=moves)
+        self.initial = Struct(to_move=player, utility=0, board={}, moves=moves)
 
     def legal_moves(self, state):
         "Legal moves are any square not yet taken."
@@ -264,11 +262,11 @@ class ConnectFour(TicTacToe):
     """A TicTacToe-like game in which you can only make a move on the bottom
     row, or in a square directly above an occupied square.  Traditionally
     played on a 7x6 board and requiring 4 in a row."""
-    
-    def __init__(self, h=7, v=6, k=4):
-        TicTacToe.__init__(self, h, v, k)
 
-    def legal_moves(self, state):
+    def __init__(self, h=7, v=6, k=4, player1='X'):
+        TicTacToe.__init__(self, h, v, k, player=player1)
+
+    def legal_moves(self,state):
         "Legal moves are any square not yet taken."
 
         return [(x, y) for (x, y) in state.moves
